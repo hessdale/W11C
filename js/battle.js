@@ -10,18 +10,20 @@ let selected_poke = Cookies.get(`selected`);
 let arena = document.getElementById(`arena`);
 let selected_parse = JSON.parse(selected_poke);
 
+let enemy_hp = Cookies.get(`computer_current_health`);
+let player_hp = Cookies.get(`user_current_health`);
 
 
 
 arena.insertAdjacentHTML(`beforeend`, `<article id="pokemon">
 <h1>${selected_parse[0].poke_name}</h1>
-<h2>${selected_parse[0].hp} HP</h2>
+<h2>${player_hp} HP</h2>
 <img class="pokemon_img" src="${selected_parse[0].img_url}" alt="">
 <button class="attack" dmg="${selected_parse[0].dmg}" poke_>ATTACK</button>
 </article>
 <article id="enemy" enemy_hp="${enemies[0].hp}">
 <h1>${enemies[0].name}</h1>
-<h2>${enemies[0].hp} HP</h2>
+<h2>${enemy_hp} HP</h2>
 <img class="enemy_img" src="${enemies[0].img_url}" alt="">
 </article>`);
 
@@ -44,9 +46,9 @@ function attack(details) {
     Cookies.set(`computer_current_health`, current_enemy_hp);
     Cookies.set(`user_current_health`, current_poke_hp);
 
-    if (current_enemy_hp > 1) {
+    if (current_enemy_hp < 1) {
         arena.insertAdjacentHTML(`afterbegin`, `<h1>YOU WIN</h1>`)
-    } else if (current_poke_hp > 1) {
+    } else if (current_poke_hp < 1) {
         arena.insertAdjacentHTML(`afterbegin`, `<h1>YOU LOSE</h1>`)
     }
 
