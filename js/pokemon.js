@@ -1,3 +1,4 @@
+//using a seperate page to define a variable used on other pages
 let pokemen = [
     {
         poke_name: `bulbasaur`,
