@@ -19,13 +19,15 @@ let player_hp = Cookies.get(`user_current_health`);
 //ijecting html onto page with selected pokemon info and enemy info
 arena.insertAdjacentHTML(`beforeend`, `<article id="pokemon">
 <h1>${selected_parse[0].poke_name}</h1>
-<h2>${player_hp} HP</h2>
+<h2 id="user_hp">${player_hp} HP</h2>
 <img class="pokemon_img" src="${selected_parse[0].img_url}" alt="">
-<button class="attack" dmg="${selected_parse[0].dmg}" poke_>ATTACK</button>
+<button class="attack" dmg1="${selected_parse[0].dmg1}" poke_>ATTACK 1</button>
+<button class="attack" dmg2="${selected_parse[0].dmg2}" poke_>ATTACK 2</button>
+<button class="attack" dmg3="${selected_parse[0].dmg3}" poke_>ATTACK 3</button>
 </article>
 <article id="enemy" enemy_hp="${enemies[0].hp}">
 <h1>${enemies[0].name}</h1>
-<h2>${enemy_hp} HP</h2>
+<h2 id="enemy_hp">${enemy_hp} HP</h2>
 <img class="enemy_img" src="${enemies[0].img_url}" alt="">
 </article>`);
 //converting enemie into string
@@ -36,8 +38,8 @@ Cookies.set(`computer_selection`, enemy_json);
 let attack_buttons = document.querySelectorAll(`.attack`);
 //using a function for attack and the math
 function attack(details) {
-    //defining poke_dmg as the selected pokemons.dmg
-    let poke_dmg = selected_parse[0].dmg;
+    //defining poke_dmg by getting button attributes that holds the damage value
+    let poke_dmg = details[`target`].attributes[1].nodeValue;
     //defining enemy_dmg as the selected enemies.attack
     let enemy_dmg = enemies[0].attack;
     //defining enemy_hp by getting cookie computers health
@@ -51,15 +53,19 @@ function attack(details) {
     //setting cookies of updated health variables
     Cookies.set(`computer_current_health`, current_enemy_hp);
     Cookies.set(`user_current_health`, current_poke_hp);
+    //updating health values on page
+    document.querySelector("#user_hp").innerHTML = `${player_hp} HP`;
+    document.querySelector("#enemy_hp").innerHTML = `${enemy_hp} HP`;
     //using an if to check and see if user has won or lost
     if (current_enemy_hp <= 1) {
         arena.insertAdjacentHTML(`afterbegin`, `<h1>YOU WIN</h1>`)
     } else if (current_poke_hp <= 1) {
         arena.insertAdjacentHTML(`afterbegin`, `<h1>YOU LOSE</h1>`)
     };
-};
+}; document.querySelector("#pokemon > h2")
 //using a for loop to add event listeners to all the attack buttons
 for (i = 0; i < attack_buttons.length; i++) {
     attack_buttons[i].addEventListener(`click`, attack);
 };
+
 

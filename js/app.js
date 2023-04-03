@@ -11,7 +11,9 @@ function choose_pokemon(details) {
         poke_name: `${details[`target`].getAttribute(`poke_name`)}`,
         img_url: `${details[`target`].getAttribute(`img_url`)}`,
         hp: `${details[`target`].getAttribute(`hp`)}`,
-        dmg: `${details[`target`].getAttribute(`dmg`)}`
+        dmg1: `${details[`target`].getAttribute(`dmg1`)}`,
+        dmg2: `${details[`target`].getAttribute(`dmg2`)}`,
+        dmg3: `${details[`target`].getAttribute(`dmg3`)}`
     }
     //pushing pokemen to selected_pokemen array
     selected_pokemon.push(pokemen);
@@ -29,7 +31,7 @@ for (i = 0; i < pokemen.length; i++) {
         `<article id="pokemon">
     <h1>${pokemen[i].poke_name}</h1>
     <img class="pokemon_img" src="${pokemen[i].img_url}" alt="">
-    <a href="/pages/battle.html"><button class="clicker" hp="${pokemen[i].hp}" poke_name="${pokemen[i].poke_name}" img_url="${pokemen[i].img_url}" dmg="${pokemen[i].dmg}">CHOOSE ME</button></a>
+    <a href="/pages/battle.html"><button class="clicker" hp="${pokemen[i].hp}" poke_name="${pokemen[i].poke_name}" img_url="${pokemen[i].img_url}" dmg1="${pokemen[i].dmg1}" dmg2="${pokemen[i].dmg2}" dmg3="${pokemen[i].dmg3}">CHOOSE ME</button></a>
   </article>`
     )
 };
